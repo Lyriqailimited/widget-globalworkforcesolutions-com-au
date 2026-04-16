@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  Relaunch AI widget template. Token list (agent substitutes these 1:1):
+    {
+  "BACKEND_URL": "https://widget.numbero.org",
+  "ASSISTANT_ID": "assistant_globalworkforcesolutions_com_au_1776318762",
+  "PAGE_TITLE": "Globalworkforcesolutions \u2014 AI Assistant",
+  "BADGE_TEXT": "AI Assistant",
+  "TITLE": "Globalworkforcesolutions",
+  "SUBTITLE": "Ask me anything about Globalworkforcesolutions",
+  "START_BUTTON_TEXT": "Talk to AI",
+  "END_BUTTON_TEXT": "End call",
+  "STATUS_READY": "Ready",
+  "STATUS_CONNECTED": "Connected",
+  "GREETING_TEXT": "Hi! How can I help you today?",
+  "CONNECTING_TEXT": "Connecting...",
+  "CONNECTED_TEXT": "Connected \u2014 speak now",
+  "AGENT_READY_TEXT": "AI assistant ready",
+  "DISCONNECTED_TEXT": "Call ended",
+  "CONNECTION_FAILED_TEXT": "Connection failed \u2014 please try again",
+  "PRIMARY_COLOR": "#128442",
+  "ACCENT_COLOR": "#0f7038",
+  "ACCENT_COLOR_HOVER": "#0d6331",
+  "END_BUTTON_COLOR": "#d32f2f",
+  "END_BUTTON_HOVER": "#b71c1c",
+  "TEXT_COLOR": "#ffffff",
+  "SUBTITLE_COLOR": "#e3f2fd",
+  "SUCCESS_COLOR": "#2e7d32",
+  "LOGO_URL": "https://globalworkforcesolutions.com.au/wp-content/uploads/2023/10/GlobalWorkForce-Logo.png",
+  "TRUST_LINE": "AI-powered assistant"
+}         = json.dumps(widget_config, indent=2)
+    Globalworkforcesolutions — AI Assistant          = widget_config.PAGE_TITLE
+    Globalworkforcesolutions               = widget_config.TITLE
+    Ask me anything about Globalworkforcesolutions            = widget_config.SUBTITLE
+    AI Assistant          = widget_config.BADGE_TEXT
+    Hi! How can I help you today?       = widget_config.GREETING_TEXT
+    Talk to AI   = widget_config.START_BUTTON_TEXT
+    AI-powered assistant          = widget_config.TRUST_LINE (new 26th key)
+    https://globalworkforcesolutions.com.au/wp-content/uploads/2023/10/GlobalWorkForce-Logo.png            = widget_config.LOGO_URL (may be "")
+         = ' style="display:none"' if LOGO_URL empty, else ''
+     style="display:none" = '' if LOGO_URL empty, else ' style="display:none"'
+    G            = 2-letter uppercase derived from TITLE words
+    #128442       = widget_config.PRIMARY_COLOR
+    #0f7038        = widget_config.ACCENT_COLOR
+    #0d6331  = widget_config.ACCENT_COLOR_HOVER
+    #d32f2f    = widget_config.END_BUTTON_COLOR
+    #b71c1c    = widget_config.END_BUTTON_HOVER
+    #ffffff          = widget_config.TEXT_COLOR
+    #e3f2fd      = widget_config.SUBTITLE_COLOR
+    #2e7d32       = widget_config.SUCCESS_COLOR
+  Everything else is stable markup — do not edit tokens, do not add new ones
+  without also updating setup-relaunch-ai.mjs RELAUNCH_WIDGET_DESIGNER_PROMPT.
+-->
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ============================================
+       CONFIGURATION
+       ============================================ -->
+  <script>
+    const CONFIG = {
+  "BACKEND_URL": "https://widget.numbero.org",
+  "ASSISTANT_ID": "assistant_globalworkforcesolutions_com_au_1776318762",
+  "PAGE_TITLE": "Globalworkforcesolutions \u2014 AI Assistant",
+  "BADGE_TEXT": "AI Assistant",
+  "TITLE": "Globalworkforcesolutions",
+  "SUBTITLE": "Ask me anything about Globalworkforcesolutions",
+  "START_BUTTON_TEXT": "Talk to AI",
+  "END_BUTTON_TEXT": "End call",
+  "STATUS_READY": "Ready",
+  "STATUS_CONNECTED": "Connected",
+  "GREETING_TEXT": "Hi! How can I help you today?",
+  "CONNECTING_TEXT": "Connecting...",
+  "CONNECTED_TEXT": "Connected \u2014 speak now",
+  "AGENT_READY_TEXT": "AI assistant ready",
+  "DISCONNECTED_TEXT": "Call ended",
+  "CONNECTION_FAILED_TEXT": "Connection failed \u2014 please try again",
+  "PRIMARY_COLOR": "#128442",
+  "ACCENT_COLOR": "#0f7038",
+  "ACCENT_COLOR_HOVER": "#0d6331",
+  "END_BUTTON_COLOR": "#d32f2f",
+  "END_BUTTON_HOVER": "#b71c1c",
+  "TEXT_COLOR": "#ffffff",
+  "SUBTITLE_COLOR": "#e3f2fd",
+  "SUCCESS_COLOR": "#2e7d32",
+  "LOGO_URL": "https://globalworkforcesolutions.com.au/wp-content/uploads/2023/10/GlobalWorkForce-Logo.png",
+  "TRUST_LINE": "AI-powered assistant"
+};
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globalworkforcesolutions — AI Assistant</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #128442;
+      --accent: #0f7038;
+      --accent-hover: #0d6331;
+      --end-btn: #d32f2f;
+      --end-btn-hover: #b71c1c;
+      --text: #ffffff;
+      --subtitle: #e3f2fd;
+      --success: #2e7d32;
+      --card-bg: #001a33;
+      --card-border: rgba(255, 102, 0, 0.12);
+      --glass: rgba(0, 51, 102, 0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--card-bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== WIDGET SHELL ===== */
+    .widget {
+      width: 100%;
+      flex: 1 1 auto;
+      background: var(--card-bg);
+      border: 0;
+      border-radius: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Tile pattern overlay */
+    .widget::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(30deg, rgba(255,102,0,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,102,0,0.03) 87.5%),
+        linear-gradient(150deg, rgba(255,102,0,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,102,0,0.03) 87.5%),
+        linear-gradient(30deg, rgba(255,102,0,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,102,0,0.03) 87.5%),
+        linear-gradient(150deg, rgba(255,102,0,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,102,0,0.03) 87.5%);
+      background-size: 40px 70px;
+      background-position: 0 0, 0 0, 20px 35px, 20px 35px;
+      opacity: 0.7;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Top glow */
+    .widget::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(0, 51, 102, 0.6) 0%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ===== HEADER ===== */
+    .hdr {
+      position: relative;
+      z-index: 2;
+      padding: 28px 28px 0;
+    }
+
+    .hdr-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .hdr-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .logo-mark {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    }
+
+    .logo-initials {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .vw-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .vw-close-btn:hover {
+      background: rgba(255,255,255,0.14);
+      transform: scale(1.05);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.25);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .live-badge span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hdr h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .hdr h1 .accent-word {
+      background: linear-gradient(135deg, var(--accent) 0%, #FF8C33 60%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hdr .tagline {
+      color: var(--subtitle);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-top: 10px;
+      max-width: 340px;
+    }
+
+    /* ===== VOICE ORB ===== */
+    .orb-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
+      padding: 24px 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .orb-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Concentric rings — pipe fitting aesthetic */
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 102, 0, 0.08);
+      transition: border-color 0.6s ease, transform 0.6s ease;
+    }
+
+    .ring-1 { inset: -8px; }
+    .ring-2 { inset: -22px; }
+    .ring-3 { inset: -38px; }
+
+    .ring.active {
+      border-color: rgba(255, 102, 0, 0.2);
+    }
+
+    .ring-1.active {
+      animation: ring-pulse 2.4s ease-in-out infinite;
+    }
+
+    .ring-2.active {
+      animation: ring-pulse 2.4s ease-in-out infinite 0.4s;
+    }
+
+    .ring-3.active {
+      animation: ring-pulse 2.4s ease-in-out infinite 0.8s;
+    }
+
+    @keyframes ring-pulse {
+      0%, 100% {
+        border-color: rgba(255, 102, 0, 0.1);
+        transform: scale(1);
+      }
+      50% {
+        border-color: rgba(255, 102, 0, 0.35);
+        transform: scale(1.04);
+      }
+    }
+
+    /* Ripple effects */
+    .ripple {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 102, 0, 0.15) 0%, transparent 70%);
+      opacity: 0;
+      transform: scale(1);
+    }
+
+    .ripple.active {
+      animation: ripple-out 2.2s ease-out infinite;
+    }
+
+    .ripple.delayed.active {
+      animation: ripple-out 2.2s ease-out infinite 0.6s;
+    }
+
+    @keyframes ripple-out {
+      0% { opacity: 0; transform: scale(1); }
+      40% { opacity: 0.5; }
+      100% { opacity: 0; transform: scale(2.2); }
+    }
+
+    /* Core orb */
+    .orb {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #002244 0%, #003366 40%, #004488 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+      box-shadow:
+        0 0 0 3px rgba(255, 102, 0, 0.15),
+        0 0 30px 4px rgba(0, 51, 102, 0.5),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3);
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+    }
+
+    .orb.active {
+      box-shadow:
+        0 0 0 3px rgba(255, 102, 0, 0.3),
+        0 0 50px 12px rgba(255, 102, 0, 0.15),
+        0 0 80px 20px rgba(0, 51, 102, 0.3),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.2);
+      animation: orb-breathe 2s ease-in-out infinite;
+    }
+
+    @keyframes orb-breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    /* Voice bars */
+    .voice-bars {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 44px;
+    }
+
+    .vbar {
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(180deg, var(--accent) 0%, #FF8C33 100%);
+      border-radius: 100px;
+      opacity: 0.85;
+      transition: height 0.2s ease;
+    }
+
+    .vbar.active {
+      animation: bar-dance 0.55s ease-in-out infinite alternate;
+    }
+
+    .vbar:nth-child(1).active { animation-delay: 0s; }
+    .vbar:nth-child(2).active { animation-delay: 0.08s; }
+    .vbar:nth-child(3).active { animation-delay: 0.16s; }
+    .vbar:nth-child(4).active { animation-delay: 0.24s; }
+    .vbar:nth-child(5).active { animation-delay: 0.32s; }
+
+    @keyframes bar-dance {
+      0% { height: 8px; }
+      100% { height: 30px; }
+    }
+
+    /* Status chip */
+    .status-chip {
+      margin-top: 20px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.4s ease;
+      white-space: nowrap;
+    }
+
+    .status-chip.off {
+      background: rgba(176, 196, 222, 0.08);
+      color: var(--subtitle);
+      border: 1px solid rgba(176, 196, 222, 0.12);
+    }
+
+    .status-chip.on {
+      background: rgba(40, 167, 69, 0.12);
+      color: #5fd07e;
+      border: 1px solid rgba(40, 167, 69, 0.25);
+    }
+
+    .sdot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .sdot.off { background: var(--subtitle); }
+
+    .sdot.on {
+      background: var(--success);
+      animation: blink 1.2s ease-in-out infinite;
+    }
+
+    /* ===== ACTION PANEL ===== */
+    .actions {
+      padding: 24px 28px 28px;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .transcript {
+      text-align: center;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px;
+      margin-bottom: 24px;
+    }
+
+    .transcript p {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.45;
+      opacity: 0.92;
+      transition: opacity 0.3s;
+    }
+
+    /* CTA button */
+    .cta {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta.start {
+      background: linear-gradient(135deg, #FF6600 0%, #FF8C33 50%, #FF6600 100%);
+      background-size: 200% 200%;
+      color: #fff;
+      animation: shimmer-bg 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer-bg {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .cta.start:hover {
+      background: linear-gradient(135deg, #E65C00 0%, #FF7A1A 50%, #E65C00 100%);
+      background-size: 200% 200%;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px -6px rgba(255, 102, 0, 0.35);
+    }
+
+    .cta.start:active { transform: scale(0.98); }
+
+    .cta.end {
+      background: var(--end-btn);
+      color: #fff;
+      animation: none;
+    }
+
+    .cta.end:hover {
+      background: var(--end-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .cta svg {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Error */
+    .err {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(204, 0, 0, 0.1);
+      border: 1px solid rgba(204, 0, 0, 0.25);
+      border-radius: 10px;
+      color: #ff6b6b;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Trust strip */
+    .trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      opacity: 0.5;
+    }
+
+    .trust svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+    }
+
+    .trust span {
+      font-size: 11px;
+      color: var(--subtitle);
+      letter-spacing: 0.02em;
+    }
+
+    /* Hidden audio */
+    #audioOutput { display: none; }
+
+    /* ===== ENTRANCE ANIMATIONS ===== */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hdr { animation: fade-up 0.6s ease-out both; }
+    .orb-section { animation: fade-up 0.6s ease-out 0.15s both; }
+    .actions { animation: fade-up 0.6s ease-out 0.3s both; }
+  </style>
+</head>
+
+<body>
+  <audio id="audioOutput" autoplay></audio>
+
+  <div class="widget">
+
+    <!-- Header -->
+    <div class="hdr">
+      <div class="hdr-top">
+        <div class="hdr-brand">
+          <img id="logoMark" src="https://globalworkforcesolutions.com.au/wp-content/uploads/2023/10/GlobalWorkForce-Logo.png" alt="Globalworkforcesolutions" class="logo-mark" onerror="this.style.display='none';var b=document.getElementById('logoInitials');if(b)b.style.display='flex'">
+          <div id="logoInitials" class="logo-initials" style="display:none">G</div>
+          <div class="live-badge">
+            <div class="live-dot"></div>
+            <span id="badgeLabel">AI Assistant</span>
+          </div>
+        </div>
+        <button type="button" class="vw-close-btn" aria-label="Close" onclick="window.parent.postMessage({type:'vw-close'},'*')">&times;</button>
+      </div>
+      <h1 id="widgetTitle">Globalworkforcesolutions</h1>
+      <p class="tagline" id="widgetSubtitle">Ask me anything about Globalworkforcesolutions</p>
+    </div>
+
+    <!-- Voice Orb -->
+    <div class="orb-section">
+      <div class="orb-wrap">
+        <div class="ring ring-3" id="ring3"></div>
+        <div class="ring ring-2" id="ring2"></div>
+        <div class="ring ring-1" id="ring1"></div>
+        <div class="ripple" id="ripple1"></div>
+        <div class="ripple delayed" id="ripple2"></div>
+
+        <div class="orb" id="orbCore">
+          <div class="voice-bars">
+            <div class="vbar" id="b1"></div>
+            <div class="vbar" id="b2"></div>
+            <div class="vbar" id="b3"></div>
+            <div class="vbar" id="b4"></div>
+            <div class="vbar" id="b5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-chip off" id="statusChip">
+        <div class="sdot off" id="sDot"></div>
+        <span id="sText">Ready to connect</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <div class="transcript">
+        <p id="txText">Hi! How can I help you today?</p>
+      </div>
+
+      <button class="cta start" id="ctaBtn" onclick="toggleCall()">
+        <svg id="micIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" x2="12" y1="19" y2="22"/>
+        </svg>
+        <svg id="phoneIco" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span id="btnLabel">Talk to AI</span>
+      </button>
+
+      <div class="err" id="errBox" style="display:none;"></div>
+
+      <div class="trust">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>AI-powered assistant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipecat client -->
+  <script src="widget-bundle.js"></script>
+
+  <script>
+    const { PipecatClient, RTVIEvent, WebSocketTransport } = window;
+
+    let isConnected = false;
+    let pipecatClient = null;
+    const audioEl = document.getElementById('audioOutput');
+
+    // DOM refs
+    const ctaBtn     = document.getElementById('ctaBtn');
+    const btnLabel   = document.getElementById('btnLabel');
+    const micIco     = document.getElementById('micIco');
+    const phoneIco   = document.getElementById('phoneIco');
+    const txText     = document.getElementById('txText');
+    const statusChip = document.getElementById('statusChip');
+    const sDot       = document.getElementById('sDot');
+    const sText      = document.getElementById('sText');
+    const orbCore    = document.getElementById('orbCore');
+    const ripple1    = document.getElementById('ripple1');
+    const ripple2    = document.getElementById('ripple2');
+    const ring1      = document.getElementById('ring1');
+    const ring2      = document.getElementById('ring2');
+    const ring3      = document.getElementById('ring3');
+    const bars       = [document.getElementById('b1'), document.getElementById('b2'), document.getElementById('b3'), document.getElementById('b4'), document.getElementById('b5')];
+    const errBox     = document.getElementById('errBox');
+
+    // Apply CONFIG to CSS vars + text
+    function applyBranding() {
+      const r = document.documentElement;
+      r.style.setProperty('--primary', CONFIG.PRIMARY_COLOR);
+      r.style.setProperty('--accent', CONFIG.ACCENT_COLOR);
+      r.style.setProperty('--accent-hover', CONFIG.ACCENT_COLOR_HOVER);
+      r.style.setProperty('--end-btn', CONFIG.END_BUTTON_COLOR);
+      r.style.setProperty('--end-btn-hover', CONFIG.END_BUTTON_HOVER);
+      r.style.setProperty('--text', CONFIG.TEXT_COLOR);
+      r.style.setProperty('--subtitle', CONFIG.SUBTITLE_COLOR);
+      r.style.setProperty('--success', CONFIG.SUCCESS_COLOR);
+
+      document.title = CONFIG.PAGE_TITLE;
+      document.getElementById('badgeLabel').textContent = CONFIG.BADGE_TEXT;
+      document.getElementById('widgetTitle').textContent = CONFIG.TITLE;
+      document.getElementById('widgetSubtitle').textContent = CONFIG.SUBTITLE;
+      btnLabel.textContent = CONFIG.START_BUTTON_TEXT;
+      sText.textContent = CONFIG.STATUS_READY;
+      txText.textContent = CONFIG.GREETING_TEXT;
+    }
+
+    applyBranding();
+
+    function updateUI(connected) {
+      isConnected = connected;
+
+      if (connected) {
+        ctaBtn.className = 'cta end';
+        btnLabel.textContent = CONFIG.END_BUTTON_TEXT;
+        micIco.style.display = 'none';
+        phoneIco.style.display = 'block';
+
+        statusChip.className = 'status-chip on';
+        sDot.className = 'sdot on';
+        sText.textContent = CONFIG.STATUS_CONNECTED;
+
+        orbCore.classList.add('active');
+        ripple1.classList.add('active');
+        ripple2.classList.add('active');
+        ring1.classList.add('active');
+        ring2.classList.add('active');
+        ring3.classList.add('active');
+        bars.forEach(b => b.classList.add('active'));
+      } else {
+        ctaBtn.className = 'cta start';
+        btnLabel.textContent = CONFIG.START_BUTTON_TEXT;
+        micIco.style.display = 'block';
+        phoneIco.style.display = 'none';
+
+        statusChip.className = 'status-chip off';
+        sDot.className = 'sdot off';
+        sText.textContent = CONFIG.STATUS_READY;
+
+        orbCore.classList.remove('active');
+        ripple1.classList.remove('active');
+        ripple2.classList.remove('active');
+        ring1.classList.remove('active');
+        ring2.classList.remove('active');
+        ring3.classList.remove('active');
+        bars.forEach(b => b.classList.remove('active'));
+      }
+    }
+
+    function setTranscript(t) { txText.textContent = t; }
+
+    function showError(msg) {
+      errBox.textContent = msg;
+      errBox.style.display = 'block';
+      setTimeout(() => { errBox.style.display = 'none'; }, 5000);
+    }
+
+    async function connect() {
+      try {
+        errBox.style.display = 'none';
+
+        const cfg = {
+          transport: new WebSocketTransport(),
+          enableMic: true,
+          enableCam: false,
+          callbacks: {
+            onConnected: () => { updateUI(true); setTranscript(CONFIG.CONNECTED_TEXT); },
+            onDisconnected: () => { updateUI(false); setTranscript(CONFIG.DISCONNECTED_TEXT); },
+            onBotReady: () => { setTranscript(CONFIG.AGENT_READY_TEXT); },
+            onUserTranscript: (data) => {
+              if (data.final) { const m = `You: ${data.text}`; setTranscript(m); console.log(m); }
+            },
+            onBotTranscript: (data) => { const m = `Agent: ${data.text}`; setTranscript(m); console.log(m); },
+            onError: (err) => { console.error("Pipecat error:", err); showError(err?.message || "Unknown error"); }
+          }
+        };
+
+        const client = new PipecatClient(cfg);
+        pipecatClient = client;
+
+        client.on(RTVIEvent.TrackStarted, (track, participant) => {
+          if (!participant?.local && track.kind === "audio" && audioEl) {
+            audioEl.srcObject = new MediaStream([track]);
+          }
+        });
+
+        setTranscript("Initializing devices...");
+        await client.initDevices();
+
+        setTranscript(CONFIG.CONNECTING_TEXT);
+        const res = await fetch(`${CONFIG.BACKEND_URL}/frontend/connect`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ assistant_id: CONFIG.ASSISTANT_ID })
+        });
+
+        if (!res.ok) throw new Error(`Failed to get WebSocket URL: ${res.status}`);
+
+        const { ws_url } = await res.json();
+        await client.connect({ wsUrl: ws_url });
+
+      } catch (err) {
+        console.error("Connection error:", err);
+        showError(err.message || "Connection failed");
+        updateUI(false);
+        setTranscript(CONFIG.CONNECTION_FAILED_TEXT);
+      }
+    }
+
+    async function disconnect() {
+      if (pipecatClient) {
+        try { await pipecatClient.disconnect(); } catch (e) { console.error("Disconnect error:", e); }
+        pipecatClient = null;
+        updateUI(false);
+      }
+    }
+
+    async function toggleCall() {
+      if (isConnected) { await disconnect(); }
+      else { await connect(); }
+    }
+
+    window.addEventListener('beforeunload', () => {
+      if (pipecatClient) pipecatClient.disconnect().catch(console.error);
+    });
+  </script>
+</body>
+
+</html>
